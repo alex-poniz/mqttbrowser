@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>SubLayout.qml</file>
+        <file>TopicDialog.qml</file>
+        <file>BrokerDialog.qml</file>
+    </qresource>
+</RCC>
