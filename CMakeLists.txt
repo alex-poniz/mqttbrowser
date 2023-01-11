@@ -1,3 +1,6 @@
+#github
+#user alex-poniz
+#token  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
 cmake_minimum_required(VERSION 3.14)
 
 project(test1 VERSION 0.1 LANGUAGES CXX)

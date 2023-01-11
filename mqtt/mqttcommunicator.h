@@ -13,13 +13,15 @@ class MqttLoopThread : public QThread
 {
     Q_OBJECT
     void run() override {
+        m_pClient->loop_forever();
+        /*
         while (!m_stop) {
             int ret = m_pClient->loop();
             if (ret != 0) {
                 qDebug() << __PRETTY_FUNCTION__ << "Error: " << ret;
                 break;
             }
-        }
+        } */
 
         qDebug() << __PRETTY_FUNCTION__ << "Loop exited!";
     };

@@ -26,6 +26,7 @@ int main(int argc, char *argv[])
     }, Qt::QueuedConnection);
 
     QQmlContext* qmlContext = engine.rootContext();
+    qmlContext->setContextProperty("appData", &appData);
     qmlContext->setContextProperty("appController", &appController);
 
     engine.load(url);

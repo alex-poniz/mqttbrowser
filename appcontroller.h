@@ -12,6 +12,9 @@ class AppController : public QObject
     Q_OBJECT
     Q_PROPERTY(bool isConnected READ isConnected WRITE setIsConnected NOTIFY isConnectedChanged)
     Q_PROPERTY(QString hostname READ hostname WRITE setHostname NOTIFY hostnameChanged)
+
+    //Q_PROPERTY(QString updatedTopic READ updatedTopic WRITE setUpdatedTopic NOTIFY updatedTopicChanged)
+    //Q_PROPERTY(QString hostname READ hostname WRITE setHostname NOTIFY hostnameChanged)
     QML_ELEMENT
 
 public:

@@ -90,8 +90,12 @@ void AppController::onMessageReceived(const QString &topic, const QString &messa
 {
     qDebug() << __PRETTY_FUNCTION__ << "topic: " << topic << " message: " << message;
 
-    QString responses = m_appData.m_responsesMap[topic];
-    responses.append("<BR>" + message);
+    int topicIndex = m_appData.getIndexByTopic(topic);
+    //int topicIndex = 0;
 
-    emit responsesChanged();
+    QString responses = m_appData.m_responses[topicIndex];
+    responses.append("<BR>" + message);
+    m_appData.m_responses[topicIndex] = responses;
+
+    emit m_appData.responsesChanged();
 }

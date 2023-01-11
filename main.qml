@@ -24,15 +24,25 @@ ApplicationWindow {
 
     function topicDialogClosed(topicname)
     {
-        console.log("topicDialogClosed")
+        console.log("topicDialogClosed: begin")
 
         if (appController.subscribe(topicname)) {
-            const newTab = myTabButton.createObject(bar, {"text": topicname} );
-            bar.addItem(newTab);
-
             var newSubLayout = mySubLayout.createObject(tabsStack);
             newSubLayout.y = 100;
             tabsStack.data.push(newSubLayout);
+            appData.addTopic(topicname);
+
+
+            var newTab = myTabButton.createObject(bar, {"text": topicname} );
+            //bar.addItem(newTab);
+            //newTab.clicked();
+            //newtab.toggled();
+            //newTab.activeFocus = true;
+            //bar.currentIndexChanged();
+            bar.setCurrentIndex(1)
+            //bar.
+            tabsStack.update();
+            console.log("topicDialogClosed: end")
         }
     }
 
@@ -114,6 +124,7 @@ ApplicationWindow {
 
     ColumnLayout {
         width: parent.width
+        height: parent.height
 
         RowLayout {
             spacing: 10
@@ -137,10 +148,16 @@ ApplicationWindow {
             }
         }
 
+    ListModel {
+        id:listModel
+    }
+
     TabBar {
         id: bar
+        Layout.fillWidth: true
         width: parent.width
 
+        /*
         TabButton {
             text: qsTr("Home")
         }
@@ -149,7 +166,7 @@ ApplicationWindow {
         }
         TabButton {
             text: qsTr("Activity")
-        }
+        } */
     }
 
     StackLayout {
@@ -157,12 +174,69 @@ ApplicationWindow {
         //y: bar.height
 
         width: parent.width
+        height: parent.height
+
         currentIndex: bar.currentIndex
-        data: [
-            SubLayout{y: bar.height; width: parent.width},
-            SubLayout{y: bar.height; width: parent.width},
-            SubLayout{y: bar.height; width: parent.width}
-            ]
+        //currentIndex: 0
+        //data: [
+
+        //    SubLayout{y: bar.height; width: parent.width},
+        //    SubLayout{y: bar.height; width: parent.width},
+        //    SubLayout{y: bar.height; width: parent.width}
+        //    ]
+        Repeater {
+            model: appData.responses
+            //model: appController.responsesList
+            //SubLayout{y: bar.height; width: parent.width; textOutput: modelData}
+            ColumnLayout{
+                spacing: 2
+                Layout.fillWidth: true
+                width: parent.width
+                height: parent.height
+
+                    TextArea {
+                        id: input
+                        //Layout.alignment: Qt.AlignCenter
+                        Layout.preferredHeight: 100
+                        Layout.fillWidth: true
+                        width: parent.width
+                        wrapMode: TextEdit.Wrap
+                        text: "<b>Hello</b> <i>World!</i>"
+                        //font.family: "Helvetica"
+                        //font.pointSize: 20
+                        //color: "blue"
+                        focus: true
+                        background: Rectangle {
+                            border.color: "black"
+                        }
+                    }
+
+                    TextArea {
+                        id: output
+                        //Layout.alignment: Qt.AlignCenter
+                        //Layout.preferredHeight: 40
+                        Layout.fillWidth: true
+                        Layout.fillHeight: true
+                        width: parent.width
+                        //height: 500
+                        readOnly: true
+                        wrapMode: TextEdit.Wrap
+                        textFormat: "RichText"
+                        text: modelData
+
+                        //font.family: "Helvetica"
+                        //font.pointSize: 20
+
+                        //color: "blue"
+                        focus: false
+
+                        background: Rectangle {
+                            border.color: "black"
+                        }
+                    }
+            }
+
+        }
     }
 
     }
